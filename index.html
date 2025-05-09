@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Giro d’Italia 2025 – Top 3 Gesamtwertung</title>
+</head>
+<body>
+    <h1>Top 3 Gesamtwertung – Giro d’Italia 2025</h1>
+    <ul id="top3"></ul>
+
+    <script>
+        fetch('/top3')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('top3');
+                data.forEach(rider => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${rider.name} – ${rider.time_diff}`;
+                    list.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Fehler beim Laden der Daten:', error);
+            });
+    </script>
+</body>
+</html>
