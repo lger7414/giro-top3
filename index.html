@@ -14,9 +14,9 @@
             .then(data => {
                 const list = document.getElementById('top3');
                 data.forEach(rider => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `${rider.name} – ${rider.time_diff}`;
-                    list.appendChild(listItem);
+                    const item = document.createElement('li');
+                    item.textContent = `${rider.name} – ${rider.time_diff}`;
+                    list.appendChild(item);
                 });
             })
             .catch(error => {
