@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, send_from_directory
 import requests
 from bs4 import BeautifulSoup
-import os
 
 app = Flask(__name__, static_folder='static')
 
@@ -15,15 +14,15 @@ def top3():
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
+    # Beispielhafte Struktur – muss ggf. an die tatsächliche HTML-Struktur angepasst werden
     table = soup.find('table')
-    rows = table.find_all('tr')[1:4] if table else []
+    rows = table.find_all('tr')[1:4]  # Überspringt die Kopfzeile und nimmt die nächsten 3 Zeilen
 
     result = []
     for row in rows:
         cols = row.find_all('td')
-        if len(cols) >= 3:
-            name = cols[1].get_text(strip=True)
-            time_diff = cols[2].get_text(strip=True)
-            result.append({'name': name, 'time_diff': time_diff})
+        name = cols[1].get_text(strip=True)
+        time_diff = cols[2].get_text(strip=True)
+        result.append({'name': name, 'time_diff': time_diff})
 
     return jsonify(result)
