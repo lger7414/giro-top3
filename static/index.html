@@ -1,1 +1,15 @@
-
+<script>
+    fetch('/top3')
+        .then(response => response.json())
+        .then(data => {
+            const list = document.getElementById('top3');
+            data.forEach(rider => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${rider.name} – ${rider.time_diff}`;
+                list.appendChild(listItem);
+            });
+        })
+        .catch(error => {
+            console.error('Fehler beim Laden der Daten:', error);
+        });
+</script>
